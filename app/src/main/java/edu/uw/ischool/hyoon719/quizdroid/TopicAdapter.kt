@@ -25,7 +25,7 @@ class TopicAdapter(val topics: List<String>, val context: Context) : RecyclerVie
         holder.select.text = topics[position]
         holder.select.setOnClickListener{
             val intent = Intent(context, TopicOverview::class.java).apply {
-                putExtra("topic_name", topics[position])
+                putExtra("TOPIC_NAME", topics[position])
             }
             context.startActivity(intent)
         }

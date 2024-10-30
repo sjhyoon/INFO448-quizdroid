@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import org.w3c.dom.Text
+import kotlin.properties.Delegates
 
 class Questions : AppCompatActivity() {
 
@@ -42,7 +43,16 @@ class Questions : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_questions)
 
-        val topicName = intent.getStringExtra("topic_name")
+        val extras = intent.extras
+        val questionNum = extras?.getInt("QUESTION_INDEX", 1)
+        var topicName = extras?.getString("TOPIC_NAME")
+        if (topicName === null) {
+            topicName = intent.getStringExtra("TOPIC_NAME")
+        }
+        var counts = extras?.getInt("COUNTS")
+        if (counts === null) {
+            counts = 0
+        }
         val questionView: TextView = findViewById(R.id.questionText)
         val choiceOne: RadioButton = findViewById(R.id.choiceOne)
         val choiceTwo: RadioButton = findViewById(R.id.choiceTwo)
@@ -51,7 +61,7 @@ class Questions : AppCompatActivity() {
         val submit: Button = findViewById(R.id.submitButton)
         submit.setEnabled(false)
 
-        var questions: Map<Int, List<String>> = mapOf(1 to listOf("",""))
+        var questions: Map<Int, List<String>> = mapOf(1 to listOf("", ""))
         if (topicName == "Math") {
             questions = mathQuestions
         } else if (topicName == "Physics") {
@@ -59,6 +69,12 @@ class Questions : AppCompatActivity() {
         } else if (topicName == "Marvel Super Heroes") {
             questions = marvelQuestions
         }
+
+        questionView.text = questions[questionNum]?.get(0)
+        choiceOne.text = questions[questionNum]?.get(1)
+        choiceTwo.text = questions[questionNum]?.get(2)
+        choiceThree.text = questions[questionNum]?.get(3)
+        choiceFour.text = questions[questionNum]?.get(4)
 
         var choice: String = ""
         choiceOne.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -77,23 +93,17 @@ class Questions : AppCompatActivity() {
             choice = choiceFour.text.toString()
             submit.setEnabled(true)
         }
-        for (i in 1..5) {
-            questionView.text = questions[i]?.get(0)
-            choiceOne.text = questions[i]?.get(1)
-            choiceTwo.text = questions[i]?.get(2)
-            choiceThree.text = questions[i]?.get(3)
-            choiceFour.text = questions[i]?.get(4)
-            submit.setOnClickListener{
-                val intent = Intent(this, Answer::class.java)
-                val extras = Bundle().apply {
-                    putString("choice", choice)
-                    putString("topic_name", topicName)
-                    putString("answer_index", i.toString())
-                }
-                intent.putExtras(extras)
-                startActivity(intent)
-            }
-        }
 
+        submit.setOnClickListener {
+            val intent = Intent(this, Answer::class.java)
+            val extras = Bundle().apply {
+                putString("CHOICE", choice)
+                putString("TOPIC_NAME", topicName)
+                putInt("QUESTION_INDEX", questionNum!!)
+                putInt("COUNTS", counts)
+            }
+            intent.putExtras(extras)
+            startActivity(intent)
+        }
     }
 }

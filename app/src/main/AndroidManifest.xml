@@ -16,15 +16,6 @@
             android:name=".Questions"
             android:exported="false" />
         <activity
-            android:name=".MarvelQuestions"
-            android:exported="false" />
-        <activity
-            android:name=".PhysicsQuestions"
-            android:exported="false" />
-        <activity
-            android:name=".MathQuestions"
-            android:exported="false" />
-        <activity
             android:name=".Answer"
             android:exported="false" />
         <activity
