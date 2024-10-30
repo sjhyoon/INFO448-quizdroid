@@ -37,15 +37,16 @@ class Answer : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_answer)
+
         val extras = intent.extras
-        val choice = extras?.getString("choice")
-        val topicName = extras?.getString("topic_name")
-        val answerIndex = Integer.parseInt(extras?.getString("answer_index"))
+        val choice = extras?.getString("CHOICE")
+        val topicName = extras?.getString("TOPIC_NAME")
+        var questionNum = extras?.getInt("QUESTION_INDEX")
+        var counts = extras?.getInt("COUNTS")
         val yourAns: TextView = findViewById(R.id.yourAnswer)
         val correctAns: TextView = findViewById(R.id.correctAnswer)
         val correctCount: TextView = findViewById(R.id.correctCounts)
         val next: Button = findViewById(R.id.nextButton)
-        var counts = 0
 
         var answerMap: Map<Int, String> = mapOf(1 to "")
         if(topicName == "Math") {
@@ -57,18 +58,28 @@ class Answer : AppCompatActivity() {
         }
 
         yourAns.text = "Your Answer: ${choice}"
-        correctAns.text = "Correct Answer: ${answerMap[answerIndex]}"
-        if (choice == answerMap[answerIndex]) {
-            counts++
+        correctAns.text = "Correct Answer: ${answerMap[questionNum]}"
+        if (choice == answerMap[questionNum]) {
+            counts = counts!! + 1
         }
-        correctCount.text = "You have ${counts} out of ${answerIndex} correct"
+        correctCount.text = "You have ${counts} out of ${questionNum} correct"
+
+        if(questionNum == 5) {
+            next.text = "Finish"
+        }
 
         next.setOnClickListener{
-            if(answerIndex == 5) {
-                next.text = "Finish"
+            if(questionNum == 5) {
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
+                questionNum = questionNum!! + 1
                 val intent = Intent(this, Questions::class.java)
+                val extras = Bundle().apply {
+                    putString("TOPIC_NAME", topicName)
+                    putInt("QUESTION_INDEX", questionNum!!)
+                    putInt("COUNTS", counts!!)
+                }
+                intent.putExtras(extras)
                 startActivity(intent)
             }
 

@@ -14,7 +14,7 @@ class TopicOverview : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_topic_overview)
 
-        val topicName = intent.getStringExtra("topic_name")
+        val topicName = intent.getStringExtra("TOPIC_NAME")
         val topicView: TextView = findViewById(R.id.topicName)
         val descriptionView: TextView = findViewById(R.id.topicDescription)
         val beginBtn: Button = findViewById(R.id.beginButton)
@@ -31,7 +31,7 @@ class TopicOverview : AppCompatActivity() {
 
         beginBtn.setOnClickListener{
             val intent = Intent(this, Questions::class.java).apply {
-                putExtra("topic_name", topicName)}
+                putExtra("TOPIC_NAME", topicName)}
             startActivity(intent)
         }
     }
