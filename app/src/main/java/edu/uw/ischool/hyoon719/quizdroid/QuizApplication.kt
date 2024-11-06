@@ -18,7 +18,7 @@ class QuizApplication : Application() {
 }
 
 interface TopicRepository {
-    fun getTopics(): List<String>
+    fun getTopics(): List<Topic>
     fun getTopic(title: String): Topic
 }
 data class Question(
@@ -57,16 +57,12 @@ class InMemoryTopicRepository : TopicRepository {
         marvelQuestions.add(Question("Who is NOT in marvel universe?", listOf("Spiderman", "Thor", "Wanda", "Batman"), 3))
         marvelQuestions.add(Question("Who is the owner of Timestone?", listOf("Wanda", "Hulk", "Clint(HawkEye)", "Dr. Strange"), 3))
 
-        topics.add(Topic("Math", "Basic math", "This will cover basic additions and multiplications", mathQuestions))
-        topics.add(Topic("Physics", "Basic physics", "This will cover basic knowledge of engineering physics including acceleration, force, etc.", physicsQuestions))
+        topics.add(Topic("Math", "About addition and multiplication", "This will cover basic additions and multiplications", mathQuestions))
+        topics.add(Topic("Physics", "About vector and force", "This will cover basic knowledge of engineering physics including acceleration, force, etc.", physicsQuestions))
         topics.add(Topic("Marvel Super Heroes", "About marvel studio", "This will cover Ironman, Spiderman, and all other super heroes in Marvel studio to check if you are a big fan of Marvel!", marvelQuestions))
     }
-    override fun getTopics(): List<String> {
-        val topicList = mutableListOf<String>()
-        for (topic in topics) {
-            topicList.add(topic.title)
-        }
-        return topicList
+    override fun getTopics(): List<Topic> {
+        return topics
     }
     override fun getTopic(title: String): Topic {
         var result = Topic("", "", "", mathQuestions)

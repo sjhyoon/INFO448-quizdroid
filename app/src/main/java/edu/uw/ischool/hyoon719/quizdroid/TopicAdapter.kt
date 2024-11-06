@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TopicAdapter(val topics: List<String>, val context: Context) : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
+class TopicAdapter(val topics: List<Topic>, val context: Context) : RecyclerView.Adapter<TopicAdapter.ViewHolder>() {
+
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val select: Button = view.findViewById(R.id.selectButton)
+        val briefDiscription: TextView = view.findViewById(R.id.shortText)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,10 +25,11 @@ class TopicAdapter(val topics: List<String>, val context: Context) : RecyclerVie
         return topics.size
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.select.text = topics[position]
+        holder.select.text = topics[position].title
+        holder.briefDiscription.text = topics[position].shortDescription
         holder.select.setOnClickListener{
             val intent = Intent(context, TopicOverview::class.java).apply {
-                putExtra("TOPIC_NAME", topics[position])
+                putExtra("TOPIC_NAME", topics[position].title)
             }
             context.startActivity(intent)
         }

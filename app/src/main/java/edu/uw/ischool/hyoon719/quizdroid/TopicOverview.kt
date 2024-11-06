@@ -21,7 +21,7 @@ class TopicOverview : AppCompatActivity() {
 
         val topicName = intent.getStringExtra("TOPIC_NAME")
         val topicView: TextView = findViewById(R.id.topicName)
-        val descriptionView: TextView = findViewById(R.id.topicDescription)
+        val descriptionView: TextView = findViewById(R.id.longText)
         val beginBtn: Button = findViewById(R.id.beginButton)
         val qNumView: TextView = findViewById(R.id.qNumText)
 
