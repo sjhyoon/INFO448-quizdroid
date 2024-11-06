@@ -9,34 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 
 class Answer : AppCompatActivity() {
 
-    val mathAnswers: Map<Int, String> = mapOf(
-        1 to "2",
-        2 to "125",
-        3 to "58",
-        4 to "10",
-        5 to "27"
-    )
-
-    val physicsAnswers: Map<Int, String> = mapOf(
-        1 to "Newton's Second Law",
-        2 to "time",
-        3 to "m/s^2",
-        4 to "kgm^2/hr",
-        5 to "Speed"
-    )
-
-    val marvelAnswers: Map<Int, String> = mapOf(
-        1 to "Captain America",
-        2 to "Ironman",
-        3 to "Loki",
-        4 to "Batman",
-        5 to "Dr. Strange"
-    )
+    lateinit var topicRepository : TopicRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_answer)
+
+        topicRepository = (applicationContext as QuizApplication).topicRepository
 
         val extras = intent.extras
         val choice = extras?.getString("CHOICE")
@@ -48,28 +28,21 @@ class Answer : AppCompatActivity() {
         val correctCount: TextView = findViewById(R.id.correctCounts)
         val next: Button = findViewById(R.id.nextButton)
 
-        var answerMap: Map<Int, String> = mapOf(1 to "")
-        if(topicName == "Math") {
-            answerMap = mathAnswers
-        }else if(topicName == "Physics") {
-            answerMap = physicsAnswers
-        }else if(topicName == "Marvel Super Heroes") {
-            answerMap = marvelAnswers
-        }
-
+        val question: Question = topicRepository.getTopic(topicName.toString()).questions[questionNum?.minus(1)!!]
+        val qLength: Int = topicRepository.getTopic(topicName.toString()).questions.size
         yourAns.text = "Your Answer: ${choice}"
-        correctAns.text = "Correct Answer: ${answerMap[questionNum]}"
-        if (choice == answerMap[questionNum]) {
+        correctAns.text = "Correct Answer: ${question.answers[question.answerIndex]}"
+        if (choice == question.answers[question.answerIndex]) {
             counts = counts!! + 1
         }
         correctCount.text = "You have ${counts} out of ${questionNum} correct"
 
-        if(questionNum == 5) {
+        if(questionNum == qLength) {
             next.text = "Finish"
         }
 
         next.setOnClickListener{
-            if(questionNum == 5) {
+            if(questionNum == qLength) {
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
                 questionNum = questionNum!! + 1

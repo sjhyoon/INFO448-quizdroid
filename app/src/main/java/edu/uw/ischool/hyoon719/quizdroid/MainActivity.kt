@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MainActivity : AppCompatActivity() {
 
     lateinit var quizTopics : RecyclerView
-    val topics = listOf("Math", "Physics", "Marvel Super Heroes")
+    lateinit var topicRepository : TopicRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +18,10 @@ class MainActivity : AppCompatActivity() {
         val viewRoot = layoutInflater.inflate(R.layout.activity_main, null)
         setContentView(viewRoot)
 
+        topicRepository = (applicationContext as QuizApplication).topicRepository
+
         quizTopics = findViewById(R.id.quizTopics)
         quizTopics.layoutManager = LinearLayoutManager(this)
-        quizTopics.adapter = TopicAdapter(topics, this)
+        quizTopics.adapter = TopicAdapter(topicRepository.getTopics(), this)
     }
 }

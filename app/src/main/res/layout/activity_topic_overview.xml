@@ -25,10 +25,10 @@
         tools:layout_editor_absoluteX="205dp" />
 
     <TextView
+        android:id="@+id/qNumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="468dp"
-        android:text="Numer of questions: 5"
         android:textSize="20dp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="205dp" />
