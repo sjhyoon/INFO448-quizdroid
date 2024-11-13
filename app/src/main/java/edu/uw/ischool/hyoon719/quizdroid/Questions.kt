@@ -45,7 +45,7 @@ class Questions : AppCompatActivity() {
 
         val question: Question = topicRepository.getTopic(topicName.toString()).questions[questionNum?.minus(1)!!]
 
-        questionView.text = question.questionText
+        questionView.text = question.text
         choiceOne.text = question.answers[0]
         choiceTwo.text = question.answers[1]
         choiceThree.text = question.answers[2]

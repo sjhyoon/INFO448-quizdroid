@@ -26,7 +26,7 @@ class TopicAdapter(val topics: List<Topic>, val context: Context) : RecyclerView
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.select.text = topics[position].title
-        holder.briefDiscription.text = topics[position].shortDescription
+        holder.briefDiscription.text = topics[position].desc
         holder.select.setOnClickListener{
             val intent = Intent(context, TopicOverview::class.java).apply {
                 putExtra("TOPIC_NAME", topics[position].title)

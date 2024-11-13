@@ -27,7 +27,7 @@ class TopicOverview : AppCompatActivity() {
 
         topicView.text = topicName
         val topic = topicRepository.getTopic(topicName.toString())
-        descriptionView.text = topic.longDescription
+        descriptionView.text = topic.longDesc
         qNumView.text = "Number of Questions: ${topic.questions.size}"
         beginBtn.setOnClickListener{
             val intent = Intent(this, Questions::class.java).apply {

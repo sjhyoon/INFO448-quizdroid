@@ -31,8 +31,8 @@ class Answer : AppCompatActivity() {
         val question: Question = topicRepository.getTopic(topicName.toString()).questions[questionNum?.minus(1)!!]
         val qLength: Int = topicRepository.getTopic(topicName.toString()).questions.size
         yourAns.text = "Your Answer: ${choice}"
-        correctAns.text = "Correct Answer: ${question.answers[question.answerIndex]}"
-        if (choice == question.answers[question.answerIndex]) {
+        correctAns.text = "Correct Answer: ${question.answers[question.answer]}"
+        if (choice == question.answers[question.answer]) {
             counts = counts!! + 1
         }
         correctCount.text = "You have ${counts} out of ${questionNum} correct"
