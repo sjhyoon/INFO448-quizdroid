@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
 }
 
 android {
@@ -43,9 +44,13 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.preference)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
+    implementation ("androidx.preference:preference-ktx:1.2.0")
     implementation("com.google.code.gson:gson:2.8.8")
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
+
 }

@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        app:key="url_text"
+        app:title="URL to download"/>
+
+    <EditTextPreference
+        app:key="new_measure_period"
+        app:title="How often to check for new downloads(in Minute)" />
+
+</PreferenceScreen>

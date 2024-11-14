@@ -1,6 +1,7 @@
 package edu.uw.ischool.hyoon719.quizdroid
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewRoot)
 
         topicRepository = (applicationContext as QuizApplication).topicRepository
+
+        val config : Button = findViewById(R.id.configButton)
+        config.setOnClickListener {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.settings_container, PrefSettingsFragment())
+                .commit()
+        }
+
+        if (intent?.getBooleanExtra("showRetryDialog", false) == true) {
+            RetryDialogFragment().show(supportFragmentManager, RetryDialogFragment.TAG)
+        }
 
         quizTopics = findViewById(R.id.quizTopics)
         quizTopics.layoutManager = LinearLayoutManager(this)

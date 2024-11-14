@@ -8,10 +8,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import org.w3c.dom.Text
-import kotlin.properties.Delegates
 
 class Questions : AppCompatActivity() {
 
